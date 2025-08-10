@@ -8,6 +8,7 @@ Made by AlexCA
 
 """modify this part at will. touch nothing else."""
 DEBUG = False
+INSEQUENCE = [] # if not empty, will generate multiple boards in a row with these as the scores. otherwise, will generate a single board
 scoreTypeAotw = ["time", "aotw", "cotw", "uotw", "sotw"]
 scoreTypeHotw = ["heat", "fear", "hotw", "ufotw", "sfotw"]
 # any other score type will not be sorted
@@ -69,13 +70,19 @@ def compareTime(player1: list, player2: list) -> list:
         return [player2, player1]
     return [player1, player2]
 
-if __name__ == "__main__":
+def main(s: str = "") -> None:
+    global widthplayers
+    global widthscores
+    global annotationSpace
     """get board details"""
-    scoreType = input("scoreType: ") or "time"
+    if not s:
+        scoreType = input("scoreType: ") or "time"
+    else:
+        scoreType = s
     scoreType = scoreType[0].upper() + scoreType[1:] # first letter will always be a capital letter
-    annotationSpace = 0
     widthplayers = len("Player") + 2
     widthscores = len(scoreType) + 2
+    annotationSpace = 0
     players = []
 
     while 1:
@@ -114,12 +121,25 @@ if __name__ == "__main__":
             print("Unknown score type, not sorting leaderboard.")
 
     """display board"""
+    if not players:
+        annotationSpace += 1
+        players = [["", "", ""]]
     print() # blank line before the leaderboard
     print("```")
     printSep()
-    printP(["Player ", scoreType, ''])
+    printP(["Player ", scoreType + ' ', ''])
     printSep()
     for p in players:
         printP(p)
     printSep()
     print("```")
+
+if __name__ == "__main__":
+    widthplayers = -1
+    widthscores = -1
+    annotationSpace = -1
+    if not INSEQUENCE:
+        main()
+    else:
+        for s in INSEQUENCE:
+            main(s)

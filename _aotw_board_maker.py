@@ -6,21 +6,43 @@ Supports sorting by time and number scores.
 Made by AlexCA
 """
 
-"""modify this part at will. touch nothing else."""
-DEBUG = False
-INSEQUENCE = [] # if not empty, will generate multiple boards in a row with these as the scores. otherwise, will generate a single board
-scoreTypeAotw = ["time", "aotw", "cotw", "uotw", "sotw"]
-scoreTypeHotw = ["heat", "fear", "hotw", "ufotw", "sfotw"]
-# any other score type will not be sorted
+PRESET = 0
+INSEQUENCE = []
+scoreTypeAotw = []
+scoreTypeHotw = []
+writeupTable = []
+widthplayers = -1
+widthscores = -1
+annotationSpace = -1
+
+"""this is an example-preset. modify this part at will. touch nothing else."""
+DEBUG = False # set to True to enable debug messages
+PRESET = 0
+
+if PRESET == 0:
+    INSEQUENCE = [] # will generate a single board that prompts for a score type
+    scoreTypeAotw = ["time", "aotw", "cotw", "uotw", "sotw"]
+    scoreTypeHotw = ["heat", "fear", "hotw", "ufotw", "sfotw"]
+    # any other score type will not be sorted
+    writeupTable = ["zagsword", "nemesis", "poseidon", "arthur", "zagspear", "achilles", "hades", "guanyu", "zagshield", "chaos", "zeus", "beowulf", "zagbow", "chiron", "hera", "rama", "zagfists", "talos", "demeter", "gilgamesh", "zagrail", "eris", "hestia", "lucifer"]
+
+if PRESET == 1:
+    INSEQUENCE = ["time", "heat", "time", "time"] # will generate multiple boards in a row with these as the scores
+    scoreTypeAotw = ["time", "aotw", "cotw", "uotw", "sotw"]
+    scoreTypeHotw = ["heat", "fear", "hotw", "ufotw", "sfotw"]
+    # any other score type will not be sorted
+    writeupTable = ["zagsword", "nemesis", "poseidon", "arthur", "zagspear", "achilles", "hades", "guanyu", "zagshield", "chaos", "zeus", "beowulf", "zagbow", "chiron", "hera", "rama", "zagfists", "talos", "demeter", "gilgamesh", "zagrail", "eris", "hestia", "lucifer"]
 
 """init"""
 # line separator
 def printSep() -> None:
-    print("+" + "-"*widthplayers + "+" + "-"*(widthscores + annotationSpace - 1) + "+")
+    print('+' + '-'*widthplayers + '+' + '-'*(widthscores + annotationSpace - 1) + '+')
+    return
 
 # print player. p is a list with [name, score, annotation]
 def printP(p: list) -> None:
-    print("| " + p[0] + " "*(widthplayers - 1 - len(p[0])) + "| " + p[1] + p[2] + " "*(widthscores + annotationSpace - 2 - len(p[1]) - len(p[2])) + "|")
+    print("| " + p[0] + ' '*(widthplayers - 1 - len(p[0])) + "| " + p[1] + p[2] + ' '*(widthscores + annotationSpace - 2 - len(p[1]) - len(p[2])) + '|')
+    return
 
 # converts time to a floating point number. please format time like the following: "days:hours:minutes:seconds:milliseconds"
 def timeToFloat(score: str) -> tuple:
@@ -36,7 +58,7 @@ def timeToFloat(score: str) -> tuple:
         score = score[:i] + score[i+1:]
     
     total = 0
-    time1 = score.split(":")
+    time1 = score.split(':')
     time1 = [float(i) for i in time1]
     total += time1.pop()
     if time1:
@@ -70,10 +92,10 @@ def compareTime(player1: list, player2: list) -> list:
         return [player2, player1]
     return [player1, player2]
 
-def main(s: str = "") -> None:
-    global widthplayers
-    global widthscores
-    global annotationSpace
+# displays the board. s is the score type, if empty, will prompt for a score type
+def board(s: str = "") -> None:
+    global widthplayers, widthscores, annotationSpace
+    """init"""
     """get board details"""
     if not s:
         scoreType = input("scoreType: ") or "time"
@@ -92,9 +114,9 @@ def main(s: str = "") -> None:
         if not player:
             break
         
-        score = input(scoreType + ": ")
+        score = input(f"{scoreType}: ")
         while not score:
-            score = input("Please enter a " + scoreType + " for this player: ")
+            score = input(f"Please enter a {scoreType} for this player: ")
         
         annotation = input("Annotation (optional): ")
         annotation = ' ' + annotation
@@ -127,19 +149,50 @@ def main(s: str = "") -> None:
     print() # blank line before the leaderboard
     print("```")
     printSep()
-    printP(["Player ", scoreType + ' ', ''])
+    printP(["Player ", scoreType + ' ', ""])
     printSep()
     for p in players:
         printP(p)
     printSep()
     print("```")
+    return
+
+# displays the writeup for the given week
+def writeup(weeknumber: str, fname: str) -> None:
+    if fname == "zagfists" or fname == "demeter":
+        fname = "zagfists_demeter"
+    while fname not in writeupTable:
+        fname = input("Invalid file name: ")
+    fname = fname + ".txt"
+    with open(fname, "r") as f:
+        writeup = f.readlines()
+        for i in range(len(writeup)):
+            for title in ("# Aspect of the Week ", "## Category of the Week "):
+                if writeup[i][:len(title)] == title:
+                    writeup[i] = title + weeknumber + writeup[i][len(title):]
+        print("".join(writeup))
+    return
 
 if __name__ == "__main__":
+    """init"""
     widthplayers = -1
     widthscores = -1
     annotationSpace = -1
+
+    """generate board"""
     if not INSEQUENCE:
-        main()
+        board()
     else:
-        for s in INSEQUENCE:
-            main(s)
+        for i, s in enumerate(INSEQUENCE):
+            print("\n")
+            print(f"Generating board {i + 1} with score type '{s}'")
+            board(s)
+    
+    """display writeup"""
+    weeknumber = input("Week number (leave empty to ignore): ")
+    if weeknumber:
+        fname = input("read from file: ")
+        while not fname:
+            fname = input("filename must be an aspect name: ")
+        print("\n")
+        writeup(weeknumber, fname)

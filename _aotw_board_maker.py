@@ -44,7 +44,7 @@ def printP(p: list) -> None:
     print("| " + p[0] + ' '*(widthplayers - 1 - len(p[0])) + "| " + p[1] + p[2] + ' '*(widthscores + annotationSpace - 2 - len(p[1]) - len(p[2])) + '|')
     return
 
-# converts time to a floating point number. please format time like the following: "days:hours:minutes:seconds:milliseconds"
+# converts time to a floating point number. please format time like the following: "days:hours:minutes:seconds.milliseconds"
 def timeToFloat(score: str) -> tuple:
     if not score:
         return 0
@@ -83,7 +83,7 @@ def numberToFloat(score: str) -> tuple:
     
     return (float(score), notes)
 
-# compares two times. please format time and number strings like the following: "days:hours:minutes:seconds:milliseconds"
+# compares two times. please format time and number strings like the following: "days:hours:minutes:seconds.milliseconds"
 def compareTime(player1: list, player2: list) -> list:
     # compare the two times, starting with the largest time-measure (usually hours or minutes)
     time1, _ = timeToFloat(player1[1])

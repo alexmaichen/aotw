@@ -3,7 +3,7 @@ Hestia Bestia!
 Just reload -> dash -> dash -> special -> attack -> reload -> dash -> dash -> attack.
 Got it? Now do it many more times.
 
-This aspect has an absurdly low build-requirement, clocking in at an incredible third place on the unmodded boards ([run by Zyruvias](<https://www.speedrun.com/hades/runs/y2grkqwz>)), or this [modded 24th place run by zyruvias](<https://www.speedrun.com/hades/runs/z1n6ekry>).
+This aspect has an absurdly low build-requirement, clocking in at an incredible third place on the unmodded boards ([run by Zyruvias](<https://www.speedrun.com/hades/runs/y2grkqwz>)), or this [modded 24th place run, also by zyruvias](<https://www.speedrun.com/hades/runs/z1n6ekry>).
 Get your poseidon dash, get an chunky attack and special (or shattered shackle) and go to town! Cluster Rockets and Rush Delivery will help.
 Pay no regard to what attack-boon the modded record uses, pls and ty; it was a justified situational pick and should not be seen as the norm.
 

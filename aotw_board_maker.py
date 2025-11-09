@@ -48,11 +48,12 @@ class AOTW():
 
 		#TODO if PRESET == 0, load from file instead
 		if self.PRESET == 1:
-			self.INSEQUENCE = ["time", "heat", "time", "time"] # will generate multiple boards in a row with these as the scores
-			self.scoreTypeAotw = ["time", "aotw", "cotw", "uotw", "sotw"]
-			self.scoreTypeHotw = ["heat", "fear", "hotw", "ufotw", "sfotw"]
+			self.INSEQUENCE: list[str] = ["time", "heat", "time", "time"] # will generate multiple boards in a row with these as the scores
+			self.scoreTypeAotw: list[str] = ["time", "aotw", "cotw", "uotw", "sotw"]
+			self.scoreTypeHotw: list[str] = ["heat", "fear", "hotw", "ufotw", "sfotw"]
 			# any other score type will not be sorted
-			self.writeupTable = [
+			self.weeknumber: str = ""
+			self.writeupTable: list[str] = [
 				"zagsword", "nemesis", "poseidon", "arthur", "zagspear", "achilles", "hades", "guanyu", "zagshield", "chaos", "zeus", "beowulf", "zagbow", "chiron", "hera", "rama", "zagfists", "talos", "demeter", "gilgamesh", "zagrail", "eris", "hestia", "lucifer",
 				
 				"allaspects", "halfspects", "dashonly", "hitless", "swowo", "bowo", "showo", "spowo", "fowo", "rowo", "3weapons", "allweapons", "freshfile", "loyaltycard", "heatspeed", "supersoaker"
@@ -64,6 +65,8 @@ class AOTW():
 			self.discord_format: str = "```"
 			self.titles: tuple = ("# Aspect of the Week ", "## Category of the Week ", "## Mini of the Week ")
 			self.enc: str = "utf-8"
+			self.conclusion: str = "Good luck and have fun! To participate, tag your victory screens with"
+			self.tags: list[str] = ["aotw", "hotw", "cotw", "motw"]
 
 	def board_wrapper(self) -> None:
 		"""
@@ -94,6 +97,9 @@ class AOTW():
 				
 				fname = fname.lower()
 				self.writeup(weeknumber, fname)
+			
+			tags_m1: str = f"{weeknumber}, #".join(self.tags[:-1])
+			print(f"\n## {self.conclusion} #{tags_m1} and #{self.tags[-1]}! :Dusa:")
 
 	def board(self, s: str = "") -> None:
 		"""

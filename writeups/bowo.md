@@ -1,4 +1,0 @@
-## Category of the Week 196: :ZagWow: 🐴 bOwO :Croven:🐫
-Do you like the bow? Of course you do. Here are all four variants of it, played in a row (order TBD)! Time starts when zagreus touches the ground on the first run, and ends the moment dad is taken care of for the fourth time. You're likely going to run at least three different builds: Zagbow likes various crit-scaling, Chiron can build pretty much anything as detailed above, Hera really wants a chunky aphrodite cast and a source of crowd control and Croven as the player :Croven:, and Rama wants the player to be Ocaml (+ hammer attack-scaling and a zeus special for crowd-control I suppose). 
-
-Here are the [unmodded](https://www.speedrun.com/hades/runs/y4oojonz) and [modded](https://www.speedrun.com/hades/runs/m3q93vqy) WRs to give you ideas, both by arcalena.

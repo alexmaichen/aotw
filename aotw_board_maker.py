@@ -99,7 +99,7 @@ class AOTW():
 				self.writeup(weeknumber, fname)
 			
 			tags_m1: str = f"{weeknumber}, #".join(self.tags[:-1])
-			print(f"\n## {self.conclusion} #{tags_m1} and #{self.tags[-1]}! :Dusa:")
+			print(f"{self.discord_format}\n## {self.conclusion} #{tags_m1} and #{self.tags[-1]}! :Dusa:{self.discord_format}")
 
 	def board(self, s: str = "") -> None:
 		"""

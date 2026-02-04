@@ -7,5 +7,5 @@ Made by AlexCA
 from aotw_board_maker import *
 
 if __name__ == "__main__":
-	aotw: AOTW = AOTW(1)
+	aotw: AOTW = AOTW(0)
 	aotw.main()

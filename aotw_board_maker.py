@@ -3,6 +3,7 @@ AOTW module
 Made by AlexCA
 """
 
+from _csv import Reader as CsvReader
 from csv import reader
 from os import path
 import sys
@@ -69,22 +70,27 @@ class AOTW():
 		
 		if self.PRESET == 1:
 			self.INSEQUENCE: list[str] = ["time", "heat", "time", "time"] # will generate multiple boards in a row with these as the scores
+			
 			self.scoreTypeAotw: list[str] = ["time", "aotw", "cotw", "uotw", "sotw"]
 			self.scoreTypeHotw: list[str] = ["heat", "fear", "hotw", "ufotw", "sfotw"]
 			# any other score type will not be sorted
+			
 			self.weeknumber: str = ""
 			self.writeupTable: list[str] = [
 				"zagsword", "nemesis", "poseidon", "arthur", "zagspear", "achilles", "hades", "guanyu", "zagshield", "chaos", "zeus", "beowulf", "zagbow", "chiron", "hera", "rama", "zagfists", "talos", "demeter", "gilgamesh", "zagrail", "eris", "hestia", "lucifer",
 				
 				"allaspects", "halfspects", "dashonly", "hitless", "swowo", "bowo", "showo", "spowo", "fowo", "rowo", "3weapons", "allweapons", "freshfile", "loyaltycard", "heatspeed", "supersoaker"
-				]
+			]
+
 			self.combined: list[tuple] = [("zagfists", "demeter"), ("hitless", "damageless"), ("allaspects", "halfspects")]
+
 			self.fnameSep: str = "_"
 			self.loc: str = "writeups/"
 			self.ext: str = ".md"
 			self.discord_format: str = "```"
 			self.titles: tuple = ("# Aspect of the Week ", "## Category of the Week ", "## Mini of the Week ")
 			self.enc: str = "utf-8"
+			
 			self.conclusion: str = "Good luck and have fun! To participate, tag your victory screens with"
 			self.tags: list[str] = ["aotw", "hotw", "cotw", "motw"]
 
@@ -96,8 +102,8 @@ class AOTW():
 		if path.exists(filename):
 			try:
 				with open(filename, newline='', encoding='utf-8') as csvfile:
-					csv_reader = reader(csvfile)
-					data = list(csv_reader)
+					csv_reader: CsvReader = reader(csvfile)
+					data: list[list[str]] = list(csv_reader)
 					processed_data: list[list[str]] = []
 					for row in data:
 						if len(row) >= 2:
@@ -163,6 +169,7 @@ class AOTW():
 		displays the board. s is the score type, if empty, will prompt for a score type
 		"""
 		# get board details
+		scoreType: str
 		if not s:
 			scoreType = input("scoreType (default: time): ") or "time"
 		else:
@@ -190,15 +197,15 @@ class AOTW():
 			while 1:
 				print() # blank line between each player
 				
-				player = input("Player: ")
+				player: str = input("Player: ")
 				if not player:
 					break
 				
 				score = input(f"{scoreType}: ")
 				while not score:
-					score = input(f"Please enter a {scoreType} for this player: ")
+					score: str = input(f"Please enter a {scoreType} for this player: ")
 				
-				annotation = input("Annotation (optional): ")
+				annotation: str = input("Annotation (optional): ")
 				annotation = ' ' + annotation
 				if len(annotation) > self.annotationSpace:
 					self.annotationSpace = len(annotation)
@@ -224,9 +231,9 @@ class AOTW():
 
 		"""display board"""
 		if not players:
-			emptyPlayer = ["", "", ""]
+			emptyPlayer: list[str] = ["", "", ""]
 			self.annotationSpace += 1
-			players = [emptyPlayer]
+			players: list[list[str]] = [emptyPlayer]
 		print() # blank line before the leaderboard
 		print("```")
 		self.printSep()
@@ -287,8 +294,8 @@ class AOTW():
 		"""
 		if not score:
 			return (0, [])
-		indices_to_remove = []
-		notes = []
+		indices_to_remove: list[int] = []
+		notes: list[str] = []
 		for i in range(len(score)):
 			if '0' <= score[i] <= '9': pass
 			elif score[i] == ':': pass
@@ -299,7 +306,6 @@ class AOTW():
 		for i in reversed(indices_to_remove):
 			score = score[:i] + score[i+1:]
 		
-		# If score is empty after stripping (e.g. "ww"), return 0
 		if not score:
 			return (0, notes)
 
@@ -324,8 +330,8 @@ class AOTW():
 		"""
 		if not score:
 			return (0, [])
-		indices_to_remove = []
-		notes = []
+		indices_to_remove: list[int] = []
+		notes: list[str] = []
 		for i in range(len(score)):
 			if '0' <= score[i] <= '9': pass
 			else: 
@@ -347,6 +353,10 @@ class AOTW():
 		"""
 		compares two times. please format time and number strings like the following: "days:hours:minutes:seconds.centiseconds"
 		"""
+		_: list[str]
+		time1: int
+		time2: int
+
 		time1, _ = self.timeToFloat(player1[1])
 		time2, _ = self.timeToFloat(player2[1])
 		if time2 > time1:

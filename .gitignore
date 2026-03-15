@@ -1,4 +1,6 @@
 __pycache__/
+writeups/
+writeups_backup/
 *.pyc
 *.pyo
 *.pyd

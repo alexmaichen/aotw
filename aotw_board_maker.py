@@ -82,7 +82,7 @@ class AOTW():
 				"allaspects", "halfspects", "dashonly", "hitless", "swowo", "bowo", "showo", "spowo", "fowo", "rowo", "3weapons", "allweapons", "freshfile", "loyaltycard", "heatspeed", "supersoaker"
 			]
 
-			self.combined: list[tuple] = [("zagfists", "demeter"), ("hitless", "damageless"), ("allaspects", "halfspects")]
+			self.combined: list[tuple[str, ...]] = [("zagfists", "demeter"), ("zagshield", "chaos"), ("hitless", "damageless"), ("allaspects", "halfspects")]
 
 			self.fnameSep: str = "_"
 			self.loc: str = "writeups/"

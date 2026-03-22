@@ -79,7 +79,9 @@ class AOTW():
 			self.writeupTable: list[str] = [
 				"zagsword", "nemesis", "poseidon", "arthur", "zagspear", "achilles", "hades", "guanyu", "zagshield", "chaos", "zeus", "beowulf", "zagbow", "chiron", "hera", "rama", "zagfists", "talos", "demeter", "gilgamesh", "zagrail", "eris", "hestia", "lucifer",
 				
-				"allaspects", "halfspects", "dashonly", "hitless", "swowo", "bowo", "showo", "spowo", "fowo", "rowo", "3weapons", "allweapons", "freshfile", "loyaltycard", "heatspeed", "supersoaker"
+				"allaspects", "halfspects", "dashonly", "hitless", "swowo", "bowo", "showo", "spowo", "fowo", "rowo", "3weapons", "allweapons", "freshfile", "loyaltycard", "heatspeed", "supersoaker",
+
+				"c1", "innout", "tartarus"
 			]
 
 			self.combined: list[tuple[str, ...]] = [("zagfists", "demeter"), ("zagshield", "chaos"), ("hitless", "damageless"), ("allaspects", "halfspects")]

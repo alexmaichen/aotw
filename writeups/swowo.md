@@ -1,4 +1,4 @@
-## Category of the Week 251: :ZagreusSword: :Nemesis: SwOwO :Poseidon: :Arthur:
+## Category of the Week : :ZagreusSword: :Nemesis: SwOwO :Poseidon: :Arthur:
 Four swords and probably about three strategies.
 - Zagsword can run ME, hermes plume for RD, or splash dash.
 - Nemesis is usually splash dash -> crit-scaling. ME obviously works too.

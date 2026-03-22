@@ -1,4 +1,4 @@
-# Aspect of the Week 251: :crown: Arthur Sword :crossed_swords:
+# Aspect of the Week : :crown: Arthur Sword :crossed_swords:
 It is time to go in search of the holy grail, as the previous owner of the Chunk-Sword:tm: once did. This is the aspect with the slowest average animation in the game. Following that trend, it is also one of the slowest speedrunning-aspects overall, however it can still shine in the fronthalf.
 
 Try to get a source of damage for regular rooms, say, zeus cast -> static discharge + lightning rod, or poseidon cast with various poseidon tier 2s. Poseidon dash is another classic to pick up as first boon, and shackle start is known to be effective as well. Shockingly for a melee-aspect however, Merciful End is considered a deprecated build-idea!

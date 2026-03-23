@@ -157,6 +157,7 @@ class AOTW():
 				"unmodded_lucifer": "",
 				"modded_lucifer": "",
 
+
 				"""heat"""
 				"unmodded_heat_zagsword": "",
 				"modded_heat_zagsword": "",
@@ -211,6 +212,7 @@ class AOTW():
 				"modded_heat_hestia": "60",
 				"unmodded_heat_lucifer": "55",
 				"modded_heat_lucifer": "",
+
 
 				"""category"""
 				"unmodded_swowo": "",
@@ -271,6 +273,7 @@ class AOTW():
 
 				"unmodded_dashonly": "",
 				"modded_dashonly": "",
+
 
 				"""mini"""
 				"unmodded_c1": "",

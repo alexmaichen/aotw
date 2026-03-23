@@ -21,6 +21,8 @@ class AOTW():
 	def __init__(self, PRESET: int = 0) -> None:
 		"""
 		init
+
+		modify presets() method only, don't touch this
 		"""
 		self.DEBUG: bool = False # set to True to enable debug messages
 		self.PRESET: int = PRESET
@@ -52,7 +54,6 @@ class AOTW():
 		if args:
 			self.PRESET = args[0]
 
-		#TODO if PRESET == 0, load from file instead
 		if self.PRESET == 0:
 			print("CSV Mode Selected.")
 			filename: str = input("Enter CSV filename (default: input.csv): ") or "input.csv"
@@ -100,7 +101,190 @@ class AOTW():
 			self.discord_format: str = "```"
 			self.enc: str = "utf-8"
 			self.titles: tuple = ("# Aspect of the Week ", "## Category of the Week ", "## Mini of the Week ")
-			self.macros: list[tuple[str, str]] = []
+			self.macros: dict[str, str] = {
+				"""speed"""
+				"unmodded_zagsword": "",
+				"modded_zagsword": "",
+				"unmodded_nemesis": "",
+				"modded_nemesis": "",
+				"unmodded_poseidon": "",
+				"modded_poseidon": "",
+				"unmodded_arthur": "",
+				"modded_arthur": "",
+				
+				"unmodded_zagspear": "",
+				"modded_zagspear": "",
+				"unmodded_achilles": "",
+				"modded_achilles": "",
+				"unmodded_hades": "",
+				"modded_hades": "",
+				"unmodded_guanyu": "",
+				"modded_guanyu": "",
+
+				"unmodded_zagshield": "",
+				"modded_zagshield": "",
+				"unmodded_chaos": "",
+				"modded_chaos": "",
+				"unmodded_zeus": "",
+				"modded_zeus": "",
+				"unmodded_beowulf": "",
+				"modded_beowulf": "",
+
+				"unmodded_zagbow": "",
+				"modded_zagbow": "",
+				"unmodded_chiron": "",
+				"modded_chiron": "",
+				"unmodded_hera": "",
+				"modded_hera": "",
+				"unmodded_rama": "",
+				"modded_rama": "",
+
+				"unmodded_zagfists": "",
+				"modded_zagfists": "",
+				"unmodded_talos": "",
+				"modded_talos": "",
+				"unmodded_demeter": "",
+				"modded_demeter": "",
+				"unmodded_gilgamesh": "",
+				"modded_gilgamesh": "",
+
+				"unmodded_zagrail": "",
+				"modded_zagrail": "",
+				"unmodded_eris": "",
+				"modded_eris": "",
+				"unmodded_hestia": "",
+				"modded_hestia": "",
+				"unmodded_lucifer": "",
+				"modded_lucifer": "",
+
+				"""heat"""
+				"unmodded_heat_zagsword": "",
+				"modded_heat_zagsword": "",
+				"unmodded_heat_nemesis": "57",
+				"modded_heat_nemesis": "",
+				"unmodded_heat_poseidon": "55",
+				"modded_heat_poseidon": "",
+				"unmodded_heat_arthur": "57",
+				"modded_heat_arthur": "60",
+				
+				"unmodded_heat_zagspear": "55",
+				"modded_heat_zagspear": "",
+				"unmodded_heat_achilles": "",
+				"modded_heat_achilles": "60",
+				"unmodded_heat_hades": "",
+				"modded_heat_hades": "60",
+				"unmodded_heat_guanyu": "61",
+				"modded_heat_guanyu": "64",
+
+				"unmodded_heat_zagshield": "60",
+				"modded_heat_zagshield": "62",
+				"unmodded_heat_chaos": "55",
+				"modded_heat_chaos": "",
+				"unmodded_heat_zeus": "64",
+				"modded_heat_zeus": "64",
+				"unmodded_heat_beowulf": "60",
+				"modded_heat_beowulf": "60",
+
+				"unmodded_heat_zagbow": "55",
+				"modded_heat_zagbow": "",
+				"unmodded_heat_chiron": "55",
+				"modded_heat_chiron": "60",
+				"unmodded_heat_hera": "56",
+				"modded_heat_hera": "57",
+				"unmodded_heat_rama": "64",
+				"modded_heat_rama": "64",
+
+				"unmodded_heat_zagfists": "55",
+				"modded_heat_zagfists": "",
+				"unmodded_heat_talos": "56",
+				"modded_heat_talos": "",
+				"unmodded_heat_demeter": "55",
+				"modded_heat_demeter": "60",
+				"unmodded_heat_gilgamesh": "53",
+				"modded_heat_gilgamesh": "55",
+
+				"unmodded_heat_zagrail": "55",
+				"modded_heat_zagrail": "",
+				"unmodded_heat_eris": "61",
+				"modded_heat_eris": "64",
+				"unmodded_heat_hestia": "59",
+				"modded_heat_hestia": "60",
+				"unmodded_heat_lucifer": "55",
+				"modded_heat_lucifer": "",
+
+				"""category"""
+				"unmodded_swowo": "",
+				"modded_swowo": "",
+				"unmodded_spowo": "",
+				"modded_spowo": "",
+				"unmodded_showo": "",
+				"modded_showo": "",
+				"unmodded_bowo": "",
+				"modded_bowo": "",
+				"unmodded_fowo": "",
+				"modded_fowo": "",
+				"unmodded_rowo": "",
+				"modded_rowo": "",
+
+				"unmodded_allaspects": "",
+				"modded_allaspects": "",
+
+				"unmodded_halfspects": "",
+				"modded_halfspects": "",
+
+				"freshfile_normal": "",
+				"freshfile_hell": "",
+
+				"fftc_unrestricted": "",
+				"fftc_nounlocks": "",
+
+				"unmodded_supersoaker": "",
+				"modded_supersoaker": "",
+
+				"unmodded_loyaltycard": "",
+				"modded_loyaltycard": "",
+
+				"seeded_anyheat": "",
+				"seeded_loyaltycard": "",
+
+				"unmodded_32": "",
+				"modded_32": "",
+				"unmodded_40": "",
+				"modded_40": "",
+				"unmodded_50": "",
+				"modded_50": "",
+
+				"unmodded_3weapons": "",
+				"modded_3weapons": "",
+
+				"unmodded_allweapons": "",
+				"modded_allweapons": "",
+
+				"unmodded_hitless": "",
+				"modded_hitless": "",
+
+				"unmodded_damageless": "",
+				"modded_damageless": "",
+
+				"unmodded_hldl": "",
+				"modded_hldl": "",
+
+				"unmodded_dashonly": "",
+				"modded_dashonly": "",
+
+				"""mini"""
+				"unmodded_c1": "",
+				"modded_c1": "",
+
+				"unmodded_tartarus": "",
+				"modded_tartarus": "",
+
+				"unmodded_innout": "",
+				"modded_innout": "",
+			}
+			self.macroprefix: str = "__"
+			self.macrosuffix: str = "__"
+			self.macrorecursive: bool = True
 			
 			self.conclusion: str = "Good luck and have fun! To participate, tag your victory screens with"
 			self.tags: list[str] = ["aotw", "hotw", "cotw", "motw"]
@@ -378,12 +562,13 @@ class AOTW():
 		return [player1, player2]
 
 	def macro(self, text: str) -> str:
-		while 1:
+		while 1: # will only loop more than once if a macro ends up expanding to another macro, either directly or in combination with a later macro, and recursive macros are allowed
 			out: str = text
-			for macro in self.macros:
-				text = text.replace(macro[0], macro[1])
+
+			for macro in self.macros.keys():
+				text = text.replace(self.macroprefix + macro + self.macrosuffix, self.macros[macro])
 			
-			if text == out:
-				break
+			if text == out or self.macrorecursive:
+				break # no more macros to expand
 		
 		return text

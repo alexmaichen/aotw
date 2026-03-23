@@ -568,7 +568,7 @@ class AOTW():
 			for macro in self.macros.keys():
 				text = text.replace(self.macroprefix + macro + self.macrosuffix, self.macros[macro])
 			
-			if text == out or self.macrorecursive:
+			if text == out or not self.macrorecursive:
 				break # no more macros to expand
 		
 		return text

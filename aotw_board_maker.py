@@ -30,7 +30,6 @@ class AOTW():
 		self.writeupTable: list[str] = []
 		self.widthplayers: int = -1
 		self.widthscores: int = -1
-		self.widthscores: int = -1
 		self.annotationSpace: int = -1
 		self.board_data: list[list[str]] = []
 
@@ -62,6 +61,15 @@ class AOTW():
 			if preset_data:
 				self.INSEQUENCE = preset_data.get("INSEQUENCE", ["time"])
 				self.board_data = preset_data.get("board_data", [])
+
+				#TODO modify AOTW.loadpreset to look for a value for these
+				self.DEBUG = preset_data.get("DEBUG", False)
+				self.scoreTypeAotw = preset_data.get("scoreTypeAotw", ["time"])
+				self.scoreTypeHotw = preset_data.get("scoreTypeHotw", ["heat", "fear"])
+				self.writeupTable = preset_data.get("writeupTable", [])
+				self.widthplayers = preset_data.get("widthplayers", -1)
+				self.widthscores = preset_data.get("widthscores", -1)
+				self.annotationSpace = preset_data.get("annotationSpace", -1)
 			else:
 				# Fallback if load fails or file not found
 				print(f"File {filename} not found or invalid. Switching to manual input.")
@@ -90,8 +98,9 @@ class AOTW():
 			self.loc: str = "writeups/"
 			self.ext: str = ".md"
 			self.discord_format: str = "```"
-			self.titles: tuple = ("# Aspect of the Week ", "## Category of the Week ", "## Mini of the Week ")
 			self.enc: str = "utf-8"
+			self.titles: tuple = ("# Aspect of the Week ", "## Category of the Week ", "## Mini of the Week ")
+			self.macros: list[tuple[str, str]] = []
 			
 			self.conclusion: str = "Good luck and have fun! To participate, tag your victory screens with"
 			self.tags: list[str] = ["aotw", "hotw", "cotw", "motw"]
@@ -265,13 +274,19 @@ class AOTW():
 			with open(fname, "r", encoding = self.enc) as f:
 				print(self.discord_format)
 				writeup: list[str] = f.readlines()
+
 				for i in range(len(writeup)):
 					for title in self.titles:
 						lt: int = len(title)
+
 						if writeup[i][:lt] == title:
 							writeup[i] = title + weeknumber + writeup[i][lt:]
-				print(("".join(writeup)).strip())
+				
+				out: str = "".join(writeup)
+				out = self.macro(out)
+				print(out.strip())
 				print(self.discord_format)
+
 		except FileNotFoundError:
 			print(f"File '{fname}' not found. Make sure a folder called {self.loc} with a file inside called {fname[len(self.loc):]} exists.")
 
@@ -361,3 +376,14 @@ class AOTW():
 		if time2 > time1:
 			return [player2, player1]
 		return [player1, player2]
+
+	def macro(self, text: str) -> str:
+		while 1:
+			out: str = text
+			for macro in self.macros:
+				text = text.replace(macro[0], macro[1])
+			
+			if text == out:
+				break
+		
+		return text

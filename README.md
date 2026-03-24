@@ -85,7 +85,7 @@ The tool uses a preset system in `aotw_board_maker.py`.
 ## Contributing
 1. Fork the repo.
 2. Create a new branch (`git checkout -b feature-name`).
-3. Commit your changes.
+3. Commit your changes. Please use this format if possible https://www.conventionalcommits.org/en/v1.0.0/
 4. Push to the "dev" branch and open a Pull Request. If no dev-branch currently exists, ask for one to be opened.
 
 ---

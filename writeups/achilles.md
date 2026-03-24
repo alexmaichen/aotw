@@ -1,4 +1,4 @@
-# Aspect of the Week 252: :speedeline: Achilles Spear :fork_and_knife:
+# Aspect of the Week : :speedeline: Achilles Spear :fork_and_knife:
 Solid A-tier aspect, however hammer-hungry. It's also mechanically one of the hardest to master.
 
 Achilles is a FlurryJab-spect. I know vibes are usually subjective, but in this case, without flurry Achilles is significantly weaker and objectively feels bad to play. Start Poseidon dash. One will try to acquire an Artemis or Zeus attack, and a cast that opens the corresponding duo with said attack (Hunting Blades / Lightning Phalanx / Lightning Rod if you want to commit that crime). You can accept any of the usual hermes options (Greatest Reflex, or Hyper Sprint and Rush Delivery).

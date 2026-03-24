@@ -21,6 +21,8 @@ class AOTW():
 	def __init__(self, PRESET: int = 0) -> None:
 		"""
 		init
+
+		modify presets() method only, don't touch this
 		"""
 		self.DEBUG: bool = False # set to True to enable debug messages
 		self.PRESET: int = PRESET
@@ -29,7 +31,6 @@ class AOTW():
 		self.scoreTypeHotw: list[str] = []
 		self.writeupTable: list[str] = []
 		self.widthplayers: int = -1
-		self.widthscores: int = -1
 		self.widthscores: int = -1
 		self.annotationSpace: int = -1
 		self.board_data: list[list[str]] = []
@@ -53,7 +54,6 @@ class AOTW():
 		if args:
 			self.PRESET = args[0]
 
-		#TODO if PRESET == 0, load from file instead
 		if self.PRESET == 0:
 			print("CSV Mode Selected.")
 			filename: str = input("Enter CSV filename (default: input.csv): ") or "input.csv"
@@ -62,6 +62,15 @@ class AOTW():
 			if preset_data:
 				self.INSEQUENCE = preset_data.get("INSEQUENCE", ["time"])
 				self.board_data = preset_data.get("board_data", [])
+
+				#TODO modify AOTW.loadpreset to look for a value for these
+				self.DEBUG = preset_data.get("DEBUG", False)
+				self.scoreTypeAotw = preset_data.get("scoreTypeAotw", ["time"])
+				self.scoreTypeHotw = preset_data.get("scoreTypeHotw", ["heat", "fear"])
+				self.writeupTable = preset_data.get("writeupTable", [])
+				self.widthplayers = preset_data.get("widthplayers", -1)
+				self.widthscores = preset_data.get("widthscores", -1)
+				self.annotationSpace = preset_data.get("annotationSpace", -1)
 			else:
 				# Fallback if load fails or file not found
 				print(f"File {filename} not found or invalid. Switching to manual input.")
@@ -79,17 +88,206 @@ class AOTW():
 			self.writeupTable: list[str] = [
 				"zagsword", "nemesis", "poseidon", "arthur", "zagspear", "achilles", "hades", "guanyu", "zagshield", "chaos", "zeus", "beowulf", "zagbow", "chiron", "hera", "rama", "zagfists", "talos", "demeter", "gilgamesh", "zagrail", "eris", "hestia", "lucifer",
 				
-				"allaspects", "halfspects", "dashonly", "hitless", "swowo", "bowo", "showo", "spowo", "fowo", "rowo", "3weapons", "allweapons", "freshfile", "loyaltycard", "heatspeed", "supersoaker"
+				"allaspects", "halfspects", "dashonly", "hitless", "swowo", "bowo", "showo", "spowo", "fowo", "rowo", "3weapons", "allweapons", "freshfile", "loyaltycard", "heatspeed", "supersoaker",
+
+				"c1", "innout", "tartarus"
 			]
 
-			self.combined: list[tuple] = [("zagfists", "demeter"), ("hitless", "damageless"), ("allaspects", "halfspects")]
+			self.combined: list[tuple[str, ...]] = [("zagfists", "demeter"), ("zagshield", "chaos"), ("hitless", "damageless"), ("allaspects", "halfspects")]
 
 			self.fnameSep: str = "_"
 			self.loc: str = "writeups/"
 			self.ext: str = ".md"
 			self.discord_format: str = "```"
-			self.titles: tuple = ("# Aspect of the Week ", "## Category of the Week ", "## Mini of the Week ")
 			self.enc: str = "utf-8"
+			self.titles: tuple = ("# Aspect of the Week ", "## Category of the Week ", "## Mini of the Week ")
+			self.macros: dict[str, str] = {
+				"""speed"""
+				"unmodded_zagsword": "",
+				"modded_zagsword": "",
+				"unmodded_nemesis": "",
+				"modded_nemesis": "",
+				"unmodded_poseidon": "",
+				"modded_poseidon": "",
+				"unmodded_arthur": "",
+				"modded_arthur": "",
+				
+				"unmodded_zagspear": "",
+				"modded_zagspear": "",
+				"unmodded_achilles": "",
+				"modded_achilles": "",
+				"unmodded_hades": "",
+				"modded_hades": "",
+				"unmodded_guanyu": "",
+				"modded_guanyu": "",
+
+				"unmodded_zagshield": "",
+				"modded_zagshield": "",
+				"unmodded_chaos": "",
+				"modded_chaos": "",
+				"unmodded_zeus": "",
+				"modded_zeus": "",
+				"unmodded_beowulf": "",
+				"modded_beowulf": "",
+
+				"unmodded_zagbow": "",
+				"modded_zagbow": "",
+				"unmodded_chiron": "",
+				"modded_chiron": "",
+				"unmodded_hera": "",
+				"modded_hera": "",
+				"unmodded_rama": "",
+				"modded_rama": "",
+
+				"unmodded_zagfists": "",
+				"modded_zagfists": "",
+				"unmodded_talos": "",
+				"modded_talos": "",
+				"unmodded_demeter": "",
+				"modded_demeter": "",
+				"unmodded_gilgamesh": "",
+				"modded_gilgamesh": "",
+
+				"unmodded_zagrail": "",
+				"modded_zagrail": "",
+				"unmodded_eris": "",
+				"modded_eris": "",
+				"unmodded_hestia": "",
+				"modded_hestia": "",
+				"unmodded_lucifer": "",
+				"modded_lucifer": "",
+
+
+				"""heat"""
+				"unmodded_heat_zagsword": "",
+				"modded_heat_zagsword": "",
+				"unmodded_heat_nemesis": "57",
+				"modded_heat_nemesis": "",
+				"unmodded_heat_poseidon": "55",
+				"modded_heat_poseidon": "",
+				"unmodded_heat_arthur": "57",
+				"modded_heat_arthur": "60",
+				
+				"unmodded_heat_zagspear": "55",
+				"modded_heat_zagspear": "",
+				"unmodded_heat_achilles": "",
+				"modded_heat_achilles": "60",
+				"unmodded_heat_hades": "",
+				"modded_heat_hades": "60",
+				"unmodded_heat_guanyu": "61",
+				"modded_heat_guanyu": "64",
+
+				"unmodded_heat_zagshield": "60",
+				"modded_heat_zagshield": "62",
+				"unmodded_heat_chaos": "55",
+				"modded_heat_chaos": "",
+				"unmodded_heat_zeus": "64",
+				"modded_heat_zeus": "64",
+				"unmodded_heat_beowulf": "60",
+				"modded_heat_beowulf": "60",
+
+				"unmodded_heat_zagbow": "55",
+				"modded_heat_zagbow": "",
+				"unmodded_heat_chiron": "55",
+				"modded_heat_chiron": "60",
+				"unmodded_heat_hera": "56",
+				"modded_heat_hera": "57",
+				"unmodded_heat_rama": "64",
+				"modded_heat_rama": "64",
+
+				"unmodded_heat_zagfists": "55",
+				"modded_heat_zagfists": "",
+				"unmodded_heat_talos": "56",
+				"modded_heat_talos": "",
+				"unmodded_heat_demeter": "55",
+				"modded_heat_demeter": "60",
+				"unmodded_heat_gilgamesh": "53",
+				"modded_heat_gilgamesh": "55",
+
+				"unmodded_heat_zagrail": "55",
+				"modded_heat_zagrail": "",
+				"unmodded_heat_eris": "61",
+				"modded_heat_eris": "64",
+				"unmodded_heat_hestia": "59",
+				"modded_heat_hestia": "60",
+				"unmodded_heat_lucifer": "55",
+				"modded_heat_lucifer": "",
+
+
+				"""category"""
+				"unmodded_swowo": "",
+				"modded_swowo": "",
+				"unmodded_spowo": "",
+				"modded_spowo": "",
+				"unmodded_showo": "",
+				"modded_showo": "",
+				"unmodded_bowo": "",
+				"modded_bowo": "",
+				"unmodded_fowo": "",
+				"modded_fowo": "",
+				"unmodded_rowo": "",
+				"modded_rowo": "",
+
+				"unmodded_allaspects": "",
+				"modded_allaspects": "",
+
+				"unmodded_halfspects": "",
+				"modded_halfspects": "",
+
+				"freshfile_normal": "",
+				"freshfile_hell": "",
+
+				"fftc_unrestricted": "",
+				"fftc_nounlocks": "",
+
+				"unmodded_supersoaker": "",
+				"modded_supersoaker": "",
+
+				"unmodded_loyaltycard": "",
+				"modded_loyaltycard": "",
+
+				"seeded_anyheat": "",
+				"seeded_loyaltycard": "",
+
+				"unmodded_32": "",
+				"modded_32": "",
+				"unmodded_40": "",
+				"modded_40": "",
+				"unmodded_50": "",
+				"modded_50": "",
+
+				"unmodded_3weapons": "",
+				"modded_3weapons": "",
+
+				"unmodded_allweapons": "",
+				"modded_allweapons": "",
+
+				"unmodded_hitless": "",
+				"modded_hitless": "",
+
+				"unmodded_damageless": "",
+				"modded_damageless": "",
+
+				"unmodded_hldl": "",
+				"modded_hldl": "",
+
+				"unmodded_dashonly": "",
+				"modded_dashonly": "",
+
+
+				"""mini"""
+				"unmodded_c1": "",
+				"modded_c1": "",
+
+				"unmodded_tartarus": "",
+				"modded_tartarus": "",
+
+				"unmodded_innout": "",
+				"modded_innout": "",
+			}
+			self.macroprefix: str = "__"
+			self.macrosuffix: str = "__"
+			self.macrorecursive: bool = True
 			
 			self.conclusion: str = "Good luck and have fun! To participate, tag your victory screens with"
 			self.tags: list[str] = ["aotw", "hotw", "cotw", "motw"]
@@ -160,9 +358,6 @@ class AOTW():
 				
 				fname = fname.lower()
 				self.writeup(weeknumber, fname)
-			
-			tags_m1: str = f"{weeknumber}, #".join(self.tags[:-1])
-			print(f"{self.discord_format}\n## {self.conclusion} #{tags_m1} and #{self.tags[-1]}! :Dusa:{self.discord_format}")
 
 	def board(self, s: str = "", data: list[list[str]] | None = None) -> None:
 		"""
@@ -266,13 +461,19 @@ class AOTW():
 			with open(fname, "r", encoding = self.enc) as f:
 				print(self.discord_format)
 				writeup: list[str] = f.readlines()
+
 				for i in range(len(writeup)):
 					for title in self.titles:
 						lt: int = len(title)
+
 						if writeup[i][:lt] == title:
 							writeup[i] = title + weeknumber + writeup[i][lt:]
-				print(("".join(writeup)).strip())
+				
+				out: str = "".join(writeup)
+				out = self.macro(out)
+				print(out.strip())
 				print(self.discord_format)
+
 		except FileNotFoundError:
 			print(f"File '{fname}' not found. Make sure a folder called {self.loc} with a file inside called {fname[len(self.loc):]} exists.")
 
@@ -362,3 +563,15 @@ class AOTW():
 		if time2 > time1:
 			return [player2, player1]
 		return [player1, player2]
+
+	def macro(self, text: str) -> str:
+		while 1: # will only loop more than once if a macro ends up expanding to another macro, either directly or in combination with a later macro, and recursive macros are allowed
+			out: str = text
+
+			for macro in self.macros.keys():
+				text = text.replace(self.macroprefix + macro + self.macrosuffix, self.macros[macro])
+			
+			if text == out or not self.macrorecursive:
+				break # no more macros to expand
+		
+		return text

@@ -1,5 +1,4 @@
 # Aspect of the Week : <:ZagGrin:1051762473419673661> Zagreus Shield 🛡️
-
 Imagine a world where your base shield deals slightly more attack damage to make cleaning up early enemies easier. If that sounds like fun, this may be the aspect for you!
 
 Zagshield is a very basic shield aspect, and by basic shield aspect I mean "get Charged Shot, poseidon dash a beefy attack early, or lose". Merciful End can work as well, but is likely not worth the gamble (and is somewhat clunky to work the combo for).
